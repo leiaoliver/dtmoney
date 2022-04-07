@@ -1,5 +1,5 @@
-import iconeEntradas from '../../assets/entradas.svg';
-import iconeSaidas from '../../assets/saidas.svg';
+import iconeEntradas from '../../assets/income.svg';
+import iconeSaidas from '../../assets/outcome.svg';
 import iconeTotal from '../../assets/total.svg';
 
 import { Container } from './style';
