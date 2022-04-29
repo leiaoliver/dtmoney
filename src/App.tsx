@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import Modal from 'react-modal';
-import { Dashboard } from './components/Dashboard';
-import { Header } from './components/Header';
-import { NewTransactionModal } from './components/NewTransactionModal';
+import {Dashboard} from './components/Dashboard';
+import {Header} from './components/Header';
+import {NewTransactionModal} from './components/NewTransactionModal';
 
-import { GobalStyle } from './styles/global';
+import {GobalStyle} from './styles/global';
+import {TransactionsProvider} from './TransactionContext';
 
 Modal.setAppElement('#root'); //acessibilidade
 
 export function App() {
-  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
-    useState(false);
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(
+    false,
+  );
 
   function handleOpenTransactionModal() {
     setIsNewTransactionModalOpen(true);
@@ -21,7 +23,7 @@ export function App() {
   }
 
   return (
-    <>
+    <TransactionsProvider>
       <Header onOpenNewTransactionModal={handleOpenTransactionModal} />
       <Dashboard />
       <NewTransactionModal
@@ -30,6 +32,6 @@ export function App() {
       />
 
       <GobalStyle />
-    </>
+    </TransactionsProvider>
   );
 }
