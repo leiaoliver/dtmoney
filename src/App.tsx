@@ -5,7 +5,7 @@ import {Header} from './components/Header';
 import {NewTransactionModal} from './components/NewTransactionModal';
 
 import {GobalStyle} from './styles/global';
-import {TransactionsProvider} from './TransactionContext';
+import {TransactionsProvider} from './hooks/useTransactions';
 
 Modal.setAppElement('#root'); //acessibilidade
 

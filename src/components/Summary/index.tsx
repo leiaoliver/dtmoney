@@ -1,13 +1,30 @@
-import {useContext} from 'react';
 import iconeEntradas from '../../assets/income.svg';
 import iconeSaidas from '../../assets/outcome.svg';
 import iconeTotal from '../../assets/total.svg';
-import {TransactionsContext} from '../../TransactionContext';
+import {useTransactions} from '../../hooks/useTransactions';
 
 import {Container} from './style';
 
 export function Summary() {
-  const {transactions} = useContext(TransactionsContext);
+  const {transactions} = useTransactions();
+
+  const Summary = transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.type === 'deposit') {
+        acc.deposits += transaction.amount;
+        acc.total += transaction.amount;
+      } else {
+        acc.withdraws += transaction.amount;
+        acc.total -= transaction.amount;
+      }
+      return acc;
+    },
+    {
+      deposits: 0,
+      withdraws: 0,
+      total: 0,
+    },
+  );
 
   console.log(transactions);
 
@@ -18,21 +35,36 @@ export function Summary() {
           <p>Entradas</p>
           <img src={iconeEntradas} alt="Entradas" />
         </header>
-        <strong>R$1888,00</strong>
+        <strong>
+          {new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(Summary.deposits)}
+        </strong>
       </div>
       <div>
         <header>
           <p>Saídas</p>
           <img src={iconeSaidas} alt="Saídas" />
         </header>
-        <strong>R$1888,00</strong>
+        <strong>
+          {new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(Summary.withdraws)}
+        </strong>
       </div>
       <div className="highLight-background">
         <header>
           <p>Total</p>
           <img src={iconeTotal} alt="Total" />
         </header>
-        <strong>R$1888,00</strong>
+        <strong>
+          {new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(Summary.total)}
+        </strong>
       </div>
     </Container>
   );
